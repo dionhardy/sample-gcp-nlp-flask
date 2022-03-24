@@ -116,6 +116,31 @@ class Analyze(Resource):
         }
         return result
 
+    def get(self):
+        """
+        This GET request will return all the texts and sentiments that have been POSTed previously.
+        """
+        # Create a Cloud Datastore client.
+        datastore_client = datastore.Client()
+
+        # Get the datastore 'kind' which are 'Sentences'
+        query = datastore_client.query(kind="Sentences")
+        text_entities = list(query.fetch())
+
+        # Parse the data into a dictionary format
+        result = {}
+        for text_entity in text_entities:
+            result[str(text_entity.id)] = {
+                "text": str(text_entity["text"]),
+                "timestamp": str(text_entity["timestamp"]),
+                "sentiment": str(text_entity["sentiment"]),
+                "entities": text_entity.get("entities"),
+                "entities_esg": text_entity.get("entities_esg"),
+                # "syntax": syntax.get("entities"),
+                "syntax_esg": text_entity.get("syntax_esg"),
+            }
+
+        return result
 
 @api.route("/api/clearSentences")
 class Data(Resource):
