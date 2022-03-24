@@ -108,6 +108,11 @@ When you are ready to leave your virtual environment:
 
 ## Deploying to App Engine
 
+Its easier to activate the app engine service account before deployment, otherwise without full permissions a new vesion will not activate fully
+
+    gcloud iam service-accounts keys create ./serviceaccount.json --iam-account <EMAIL ADDRESS>
+    gcloud auth activate-service-account --key-file= serviceaccount.json
+
 Deploy your application to App Engine with the following command. Please note that this may
 take several minutes.
 
