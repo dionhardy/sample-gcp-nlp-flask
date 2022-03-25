@@ -2,6 +2,7 @@ import logging
 
 from sklearn.feature_extraction.text import TfidfVectorizer, CountVectorizer
 from sklearn.datasets import fetch_20newsgroups
+from sklearn.datasets import load_files
 from sklearn.decomposition import NMF, LatentDirichletAllocation
 
 class TopicAnalyser:
@@ -17,7 +18,8 @@ class TopicAnalyser:
     def analyse(self):
         # TODO: participants should consider changing dataset to match the brief.
         if (self.data == None):
-            dataset = fetch_20newsgroups(shuffle=True, random_state=1, remove=('headers', 'footers', 'quotes'))
+            dataset =  fetch_20newsgroups(shuffle=True, random_state=1, remove=('headers', 'footers', 'quotes'))
+            #dataset = load_files('articles',encoding='UTF-8')
             documents = dataset.data
 
         # HYPERPARAMETERS: Consider tuning
